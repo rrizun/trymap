@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { latLng, tileLayer, marker, latLngBounds, LatLngExpression, LatLng, Map } from 'leaflet';
+import { latLng, tileLayer, marker, latLngBounds, LatLngExpression, LatLng, Map, Marker, icon } from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +23,13 @@ export class AppComponent {
   };
 
   private map: Map;
+
+  ngOnInit() {
+    Marker.prototype.options.icon = icon({
+      iconUrl: 'assets/leaflet/marker-icon.png',
+      shadowUrl: 'assets/leaflet/marker-shadow.png'
+    });
+  }
 
   marker(coord: LatLngExpression) {
     return marker(coord);
