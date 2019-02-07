@@ -24,18 +24,7 @@ export class AppComponent {
 
   private map: Map;
 
-  ngOnInit() {
-
-    // latLngBounds(this.coords);
-
-    // this.layers = [
-
-    // ]
-
-
-  }
-
-  foo(coord: LatLngExpression) {
+  marker(coord: LatLngExpression) {
     return marker(coord);
   }
 
@@ -43,11 +32,16 @@ export class AppComponent {
     this.map = map;
     this.addRandomLatLng();
     this.doFitBounds();
-    this.map.setZoom(5);
   }
 
   addRandomLatLng() {
     this.coords.push([this.random(150), this.random(300)]);
+    this.doFitBounds();
+  }
+  
+  removeRandomLatLng() {
+    if (this.coords.length>0)
+      this.coords.shift();
     this.doFitBounds();
   }
 
@@ -57,6 +51,8 @@ export class AppComponent {
 
   doFitBounds() {
     this.map.fitBounds(latLngBounds(this.coords))
+    if (this.coords.length==1)
+      this.map.setZoom(5);
   }
 
 }
