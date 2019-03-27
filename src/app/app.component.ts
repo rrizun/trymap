@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { icon, latLngBounds, LatLngExpression, Map, marker, Marker, tileLayer } from 'leaflet';
+import { Component } from "@angular/core";
+import { icon, latLngBounds, LatLngExpression, Map, marker, Marker, tileLayer } from "leaflet";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = 'trymap';
+
+  private map: Map;
 
   coords: LatLngExpression[] = [
     // [46.879966, -121.726909],
@@ -16,18 +17,14 @@ export class AppComponent {
 
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '...' })
+      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "openstreetmap.org" })
     ],
-    // zoom: 12,
-    // center: latLng(33.121944, -117.296944)
   };
-
-  private map: Map;
 
   ngOnInit() {
     Marker.prototype.options.icon = icon({
-      iconUrl: 'assets/leaflet/marker-icon.png',
-      shadowUrl: 'assets/leaflet/marker-shadow.png'
+      iconUrl: "assets/leaflet/marker-icon.png",
+      shadowUrl: "assets/leaflet/marker-shadow.png"
     });
   }
 
