@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { latLng, tileLayer, marker, latLngBounds, LatLngExpression, LatLng, Map, Marker, icon } from 'leaflet';
+import { icon, latLngBounds, LatLngExpression, Map, marker, Marker, tileLayer } from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent {
 
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '...' })
     ],
     // zoom: 12,
     // center: latLng(33.121944, -117.296944)
@@ -31,8 +31,8 @@ export class AppComponent {
     });
   }
 
-  marker(coord: LatLngExpression) {
-    return marker(coord);
+  markers(): Marker[] {
+    return this.coords.map((coord) => { return marker(coord) });
   }
 
   onMapReady(map: Map) {
@@ -47,8 +47,7 @@ export class AppComponent {
   }
   
   removeRandomLatLng() {
-    if (this.coords.length>0)
-      this.coords.shift();
+    this.coords.shift();
     this.doFitBounds();
   }
 
@@ -59,7 +58,7 @@ export class AppComponent {
   doFitBounds() {
     this.map.fitBounds(latLngBounds(this.coords))
     if (this.coords.length==1)
-      this.map.setZoom(5);
+      this.map.setZoom(9);
   }
 
 }
